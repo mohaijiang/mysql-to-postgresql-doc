@@ -1,0 +1,10 @@
+2024-12-20 10:13:42 read_replica INFO: CONSISTENT POINT FOR TABLE public.t_test REACHED  - binlogfile mysql-bin.000003, position 1743
+2024-12-20 10:13:42 read_replica INFO: Saved master data for source: mysql
+2024-12-20 10:13:42 read_replica INFO: The source: mysql reached the consistent status
+2024-12-20 10:14:17 read_replica INFO: QUERY EVENT - binlogfile mysql-bin.000003, position 2027.
+--------
+/* ApplicationName=IntelliJ IDEA 2023.3.4 */ alter table t_test
+    add `desc` varchar(20) null comment 'desc'
+-------- 
+2024-12-20 10:14:17 read_replica INFO: Saved master data for source: mysql
+2024-12-20 12:28:30 read_replica WARNING: Couldn't connect to the source database for reading the replica. Ignoring.

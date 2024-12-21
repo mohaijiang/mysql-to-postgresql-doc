@@ -1,0 +1,47 @@
+2024-12-20 10:05:12 MainProcess INFO: Checking if the replica for source mysql is stopped 
+2024-12-20 10:07:13 MainProcess INFO: Checking if the replica for source mysql is stopped 
+2024-12-20 10:10:00 MainProcess INFO: retrieving foreign keys metadata for schemas 'testdb'
+2024-12-20 10:10:00 MainProcess INFO: resetting the sequence  t_test_id_seq
+2024-12-20 10:10:26 MainProcess INFO: Trying to add a new source
+2024-12-20 10:10:41 MainProcess INFO: Initialising the replica for source mysql
+2024-12-20 10:10:41 MainProcess INFO: deleting all the table references from the replica catalog for source mysql 
+2024-12-20 10:10:41 MainProcess INFO: Copying the source table t_test into _public_tmp.t_test
+2024-12-20 10:10:41 MainProcess INFO: Building index pk_t_test_1734689441_0 on _public_tmp.t_test
+2024-12-20 10:10:41 MainProcess INFO: Granting select on tables in schema _public_tmp to the role(s) usr_readonly.
+2024-12-20 10:10:41 MainProcess WARNING: The role usr_readonly does not exist
+2024-12-20 10:10:41 MainProcess INFO: Swapping schema public with _public_tmp
+2024-12-20 10:10:41 MainProcess INFO: Saved master data for source: mysql
+2024-12-20 10:10:41 MainProcess INFO: Set high watermark for source: mysql
+2024-12-20 10:10:41 MainProcess INFO: init replica for source mysql is complete
+2024-12-20 10:11:31 MainProcess INFO: Checking if the replica for source mysql is stopped 
+2024-12-20 10:11:31 MainProcess INFO: Cleaning not processed batches for source mysql
+2024-12-20 10:13:02 MainProcess INFO: Initialising the replica for source mysql
+2024-12-20 10:13:02 MainProcess INFO: deleting all the table references from the replica catalog for source mysql 
+2024-12-20 10:13:02 MainProcess INFO: Copying the source table t_test into _public_tmp.t_test
+2024-12-20 10:13:02 MainProcess INFO: Building index pk_t_test_1734689582_0 on _public_tmp.t_test
+2024-12-20 10:13:02 MainProcess INFO: Granting select on tables in schema _public_tmp to the role(s) usr_readonly.
+2024-12-20 10:13:02 MainProcess WARNING: The role usr_readonly does not exist
+2024-12-20 10:13:02 MainProcess INFO: Swapping schema public with _public_tmp
+2024-12-20 10:13:02 MainProcess INFO: Saved master data for source: mysql
+2024-12-20 10:13:02 MainProcess INFO: Set high watermark for source: mysql
+2024-12-20 10:13:02 MainProcess INFO: init replica for source mysql is complete
+2024-12-20 10:13:25 MainProcess INFO: Checking if the replica for source mysql is stopped 
+2024-12-20 10:13:25 MainProcess INFO: Cleaning not processed batches for source mysql
+2024-12-20 10:13:25 MainProcess INFO: Starting the replica daemons for source mysql 
+2024-12-20 13:55:39 MainProcess ERROR: Read process alive: False - Replay process alive: False
+2024-12-20 13:55:39 MainProcess ERROR: Stack trace: Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/pg_chameleon-2.0.16-py3.9.egg/pg_chameleon/lib/global_lib.py", line 496, in read_replica
+    self.mysql_source.read_replica()
+  File "/usr/local/lib/python3.9/site-packages/pg_chameleon-2.0.16-py3.9.egg/pg_chameleon/lib/mysql_lib.py", line 1438, in read_replica
+    skip = self.__init_read_replica()
+  File "/usr/local/lib/python3.9/site-packages/pg_chameleon-2.0.16-py3.9.egg/pg_chameleon/lib/mysql_lib.py", line 818, in __init_read_replica
+    self.postgis_present = self.pg_engine.check_postgis()
+  File "/usr/local/lib/python3.9/site-packages/pg_chameleon-2.0.16-py3.9.egg/pg_chameleon/lib/pg_lib.py", line 619, in check_postgis
+    self.pgsql_cur.execute(sql_check)
+psycopg2.errors.AdminShutdown: terminating connection due to administrator command
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+2024-12-20 13:55:39 MainProcess INFO: Replica process for source mysql ended

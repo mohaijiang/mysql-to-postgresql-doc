@@ -1,0 +1,71 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql57
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+#
+#  dbsync:
+#    image: registry.cn-hangzhou.aliyuncs.com/xhtb/dbsyncer:latest
+#    container_name: dbsync
+#    restart: always
+#    ports:
+#      - "18686:18686"
+#
+#  symmetricds:
+#    image:  jumpmind/symmetricds:3.15.11
+#    container_name: symmetricds
+#    restart: always
+#    volumes:
+#      - ./sym-engines:/opt/symmetric-ds/engines
+##      - ./sym-conf:/opt/symmetric-ds/conf
+##      - ./sym-security:/opt/symmetric-ds/security
+#    ports:
+#      - 31415:31415
+
+
+#  https://pgchameleon.org/documents/usage.html#command-line-reference
+  pg_chameleon:
+    build:
+      context: pg_chameleon
+    image: kivra/pg_chameleon:latest
+#    image: kivra/pg_chameleon:2.0.16
+    command:
+      - sleep
+      - infinity
+#    command:
+#      - start_replica
+#      - --config
+#      - default
+#      - --source
+#      - mysql
+    volumes:
+      - ./my_config.yml:/root/.pg_chameleon/configuration/default.yml
+      - ./pid:/root/.pg_chameleon/pid/
+      - ./logs:/root/.pg_chameleon/logs
+volumes:
+  mysql_data:
+  postgres_data:
+

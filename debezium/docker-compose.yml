@@ -1,0 +1,79 @@
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql57
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: quay.io/debezium/zookeeper:3.0
+    container_name: zookeeper
+    restart: always
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+
+  kafka:
+    image: quay.io/debezium/kafka:3.0
+    container_name: kafka
+    environment:
+      ZOOKEEPER_CONNECT: zookeeper:2181
+    restart: always
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8080:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  connect:
+    image: quay.io/debezium/connect:3.0
+    container_name: connect
+    restart: always
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: "1"
+      CONFIG_STORAGE_TOPIC: "my_connect_configs"
+      OFFSET_STORAGE_TOPIC: "my_connect_offsets"
+      STATUS_STORAGE_TOPIC: "my_connect_statuses"
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+      - mysql
+
+volumes:
+  mysql_data:
+  postgres_data:
